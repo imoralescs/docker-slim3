@@ -1,16 +1,14 @@
 <?php
-  require '../vendor/autoload.php';
-
   // Test PHP Server Version
   // phpinfo();
 
   // Test Database Connection
   /*
   try {
-    $dbh = new pdo(
-      'mysql:host=mysql:3306;dbname=project',
-      'project',
-      'project',
+    $dbh = new PDO(
+      'mysql:host=mysql;dbname=name_db',
+      'user',
+      'password',
       array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     die(json_encode(array('outcome:' => true)));
   }
@@ -19,21 +17,8 @@
   }
   */
 
-  // Basic Slim Route
-  $app = new \Slim\App([
-    // Display Error Details - Include only for development.
-    'settings' => [
-      'displayErrorDetails' => true
-    ]
-  ]);
+  require __DIR__ . '/../vendor/autoload.php';
 
-  // Slim Container - Is a Dependency Container, used for dependency injection.
-  $container = $app->getContainer();
-
-  $app->get('/', function(){
-    echo 'Home';
-  });
-
+  require __DIR__ . '/../bootstrap/app.php';
+  
   $app->run();
-
-?>

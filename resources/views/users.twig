@@ -1,0 +1,13 @@
+{% extends 'layouts/app.twig' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+	Users view for <i>{{ users }}</li>
+	<ul>
+		{% for user in users %}
+			<li>{{ user.username }}</li>
+		{% endfor %}
+	</ul>
+	<a href="{{ path_for('home') }}">Home</a>
+{% endblock %}
