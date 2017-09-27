@@ -1,7 +1,7 @@
 <?php
 
 	use App\Controllers\TopicController;
-	use App\Models\User;
+	use App\Controllers\UserController;
 
 	// setName is to add name to route
 	$app->get('/', function($request, $response){
@@ -21,17 +21,17 @@
 			'user' => 'Steve',
 			'userdetail' => $userdetail
 		]);
-	})->setName('users.index');
+	})->setName('customers.index');
 	*/
 
 	// Passing data to view with database
-	$app->get('/users', function($request, $response){
+	$app->get('/customers', function($request, $response){
 		$users = $this->db->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
 
-		return $this->view->render($response, 'users.twig',[
+		return $this->view->render($response, 'customers.twig',[
 			'users' => $users
 		]);
-	})->setName('users.index');
+	})->setName('customers.index');
 
 	// Route parameters without database
 	/*
@@ -47,14 +47,14 @@
 	*/
 
 	// Route parameters with database
-	$app->get('/users/{id}', function($request, $response, $args){
+	$app->get('/customer/{id}', function($request, $response, $args){
 		$user = $this->db->prepare("SELECT * FROM users WHERE id = :id");
 		$user->execute([
 			'id' => $args['id']
 		]);
 
 		$user = $user->fetch(PDO::FETCH_OBJ);
-		return $this->view->render($response, 'user.twig', [
+		return $this->view->render($response, 'customer.twig', [
 			'user' => $user
 		]);
 	});
@@ -97,4 +97,8 @@
 	$app->group('/topics', function(){
 		$this->get('', TopicController::class . ':index');
 		$this->get('/{id}', TopicController::class . ':show')->setName('topics.show');
+	});
+
+	$app->group('/users', function(){
+		$this->get('', UserController::class . ':index');
 	});
