@@ -1,15 +1,14 @@
-<?php 
+<?php
+
+	use App\Controllers\TopicController;
 	use App\Models\User;
 
-	// setName is to add name to route.
+	// setName is to add name to route
 	$app->get('/', function($request, $response){
-		$user = new User;
-
-		var_dump($user);
-		//return $this->view->render($response, 'home.twig');
+		return $this->view->render($response, 'home.twig');
 	})->setName('home');
 
-	// Passing data to view without database.
+	// Passing data to view without database
 	/*
 	$app->get('/users', function($request, $response){
 		$userdetail = [
@@ -29,12 +28,9 @@
 	$app->get('/users', function($request, $response){
 		$users = $this->db->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
 
-		
 		return $this->view->render($response, 'users.twig',[
 			'users' => $users
 		]);
-		
-		//print_r($users);
 	})->setName('users.index');
 
 	// Route parameters without database
@@ -71,6 +67,7 @@
 		// Getting request data
 		// echo $request->getParam('email');
 
+		// Redirect after post
 		return $response->withRedirect('contact/confirm');
 	})->setName('contact');
 
@@ -79,6 +76,8 @@
 	})->setName('contact.confirm');
 
 	// Route Groups
+	// Without controller
+	/*
 	$app->group('/topics', function(){
 		$this->get('', function(){
 			echo 'Topic list';
@@ -91,4 +90,11 @@
 		$this->post('', function(){
 			echo 'Post topic';
 		});
+	});
+	*/
+
+	// With controller
+	$app->group('/topics', function(){
+		$this->get('', TopicController::class . ':index');
+		$this->get('/{id}', TopicController::class . ':show')->setName('topics.show');
 	});
