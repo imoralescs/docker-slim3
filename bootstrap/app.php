@@ -28,4 +28,13 @@
     return $view;
   };
 
+  // Middleware is for do some task before or after access to the main core app.
+  $middleware = function($request, $response, $next){
+    $response->getBody()->write('Before');
+    $response = $next($request, $response);
+    $response->getBody()->write('After');
+
+    return $response;
+  };
+
   require_once(__DIR__ .'/../routes/web.php');

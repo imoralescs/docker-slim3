@@ -2,6 +2,7 @@
 
 	use App\Controllers\TopicController;
 	use App\Controllers\UserController;
+	use App\Controllers\ExampleController;
 
 	// setName is to add name to route
 	$app->get('/', function($request, $response){
@@ -94,11 +95,43 @@
 	*/
 
 	// With controller
+	/*
 	$app->group('/topics', function(){
 		$this->get('', TopicController::class . ':index');
+		$this->get('/api', TopicController::class . ':api');
 		$this->get('/{id}', TopicController::class . ':show')->setName('topics.show');
 	});
+	*/
 
 	$app->group('/users', function(){
 		$this->get('', UserController::class . ':index');
 	});
+
+	// Redirect
+	$app->get('/redirect', ExampleController::class . ':redirect');
+	$app->get('/landing', ExampleController::class . ':landing')->setName('landing');
+
+	// Redirect with params
+	$app->get('/store', ExampleController::class . ':store');
+	$app->get('/show/{id}', ExampleController::class . ':show')->setName('show');
+
+	// Route with middleware
+	/*
+	$authenticated = function($request, $response, $next) use ($container) {
+		if(!isset($_SESSION['user_id'])){
+			$response = $response->withRedirect($container->router->pathFor('login'));
+		}
+
+		return $next($request, $response);
+	};
+	*/
+
+	use App\Middleware\RedirectIfUnauthenticated;
+
+	$app->get('/topics', TopicController::class . ':index')->add($middleware);
+	$app->get('/topics/api', TopicController::class . ':api');
+	//$app->get('/topics/{id}', TopicController::class . ':show')->add($authenticated)->setName('topics.show');
+	$app->get('/topics/{id}', TopicController::class . ':show')->add(new RedirectIfUnauthenticated)->setName('topics.show');
+	$app->get('/login', function(){
+		return 'Login';
+	})->setName('login');
