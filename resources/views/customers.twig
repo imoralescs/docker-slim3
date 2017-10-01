@@ -3,10 +3,10 @@
 {% block title %}Users{% endblock %}
 
 {% block content %}
-	Users view for <i>{{ users }}</li>
+	Customer in view: <i>{{ customers }}</li>
 	<ul>
-		{% for user in users %}
-			<li>{{ user.username }}</li>
+		{% for customer in customers %}
+			<li>{{ customer.username }}</li>
 		{% endfor %}
 	</ul>
 	<a href="{{ path_for('home') }}">Home</a>

@@ -3,9 +3,10 @@
 {% block title %}User{% endblock %}
 
 {% block content %}
+	<p>Customer info:</p>
 	{% if not user %}
 		<p>No user found.</p>
 	{% else %}
-		<h1>{{ user.username }} <i>{{ user.email }}</i></h1>
+		<p>{{ user.username }} - <i>{{ user.email }}</i></p>
 	{% endif %}
 {% endblock %}
