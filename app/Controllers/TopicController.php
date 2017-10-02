@@ -8,13 +8,13 @@ class TopicController extends Controller
 {
   public function index($request, $response)
   {
-    $topics = $this->c->db->query("SELECT * FROM topics")->fetchAll(PDO::FETCH_OBJ);
+    $topics = $this->c->db_pdo->query("SELECT * FROM topics")->fetchAll(PDO::FETCH_OBJ);
     return $this->c->view->render($response, 'topics/index.twig', compact('topics'));
   }
 
   public function show($request, $response, $args)
   {
-    $topic = $this->c->db->prepare("SELECT * FROM topics WHERE id = :id");
+    $topic = $this->c->db_pdo->prepare("SELECT * FROM topics WHERE id = :id");
     $topic->execute([
       'id' => $args['id']
     ]);
@@ -32,7 +32,7 @@ class TopicController extends Controller
   // Response on JSON
   public function api($request, $response)
   {
-    $topics = $this->c->db->query("SELECT * FROM topics")->fetchAll(PDO::FETCH_OBJ);
+    $topics = $this->c->db_pdo->query("SELECT * FROM topics")->fetchAll(PDO::FETCH_OBJ);
 
     if($topics === false)
     {

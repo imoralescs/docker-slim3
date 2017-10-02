@@ -29,14 +29,18 @@
   $capsule->bootEloquent();
 
   // Installing Database to used PDO
-  /*
-  $container['db'] = function(){
+  $container['db_pdo'] = function(){
     return new PDO('mysql:host=mysql;dbname=name_db','user','password');
   };
-  */
+
   // Installing Database to used Eloquent
-  $container['db'] = function($container) use ($capsule){
+  $container['db_elo'] = function($container) use ($capsule){
     return $capsule;
+  };
+
+  // Adding Validation to container
+  $container['validator'] = function($container){
+    return new App\Validation\Validator;
   };
 
   // Installing View Container (Twig)

@@ -3,6 +3,7 @@
 	use App\Controllers\TopicController;
 	use App\Controllers\UserController;
 	use App\Controllers\ExampleController;
+	use App\Controllers\Auth\AuthController;
 
 	// setName is to add name to route
 	$app->get('/', function($request, $response){
@@ -134,6 +135,8 @@
 
 	// Middleware
 	use App\Middleware\RedirectIfUnauthenticated;
+	use App\Middleware\ValidationErrorsMiddleware;
+	use App\Middleware\OldInputMiddleware;
 
 	//$app->get('/topics', TopicController::class . ':index')->add($middleware);
 	//$app->get('/topics/api', TopicController::class . ':api');
@@ -154,3 +157,7 @@
 	$app->get('/login', function(){
 		return 'Login';
 	})->setName('login');
+
+	// Authentication routes
+	$app->get('/auth/signup', AuthController::class . ':getSignUp')->add(new ValidationErrorsMiddleware($container))->add(new OldInputMiddleware($container))->setName('auth.signup');
+	$app->post('/auth/signup', AuthController::class . ':postSignUp');

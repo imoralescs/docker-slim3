@@ -1,0 +1,40 @@
+<h1>Sign Up</h1>
+<form action="{{ path_for('auth.signup') }}" method="POST">
+	{{ old | json_encode }}
+	<div class="form-control{{ errors.firstname ? ' has-error' : '' }}">
+		<label for="name">First Name</label>
+		<input type="text" name="firstname" id="firstname" value="{{ old.firstname }}">
+		{% if errors.firstname %}
+			<span>{{ errors.firstname | first }}</span>
+		{% endif %}
+	</div>
+	<div class="form-control{{ errors.lastname ? ' has-error' : '' }}">
+		<label for="name">Last Name</label>
+		<input type="text" name="lastname" id="lastname">
+		{% if errors.lastname %}
+			<span>{{ errors.lastname | first }}</span>
+		{% endif %}
+	</div>
+	<div class="form-control{{ errors.username ? ' has-error' : '' }}">
+		<label for="name">Username</label>
+		<input type="text" name="username" id="username">
+		{% if errors.username %}
+			<span>{{ errors.username | first }}</span>
+		{% endif %}
+	</div>
+	<div class="form-control{{ errors.email ? ' has-error' : '' }}">
+		<label for="name">Email</label>
+		<input type="text" name="email" id="email">
+		{% if errors.email %}
+			<span>{{ errors.email | first }}</span>
+		{% endif %}
+	</div>
+	<div class="form-control{{ errors.password ? ' has-error' : '' }}">
+		<label for="name">Password</label>
+		<input type="password" name="password" id="password">
+		{% if errors.password %}
+			<span>{{ errors.password | first }}</span>
+		{% endif %}
+	</div>
+	<button type="submit">Sign up</button>
+</form>

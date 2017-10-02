@@ -4,7 +4,7 @@
 
 {% block content %}
 	<h1>Contact</h1>
-	<form action="{{ path_for('contact') }}" method="POST">
+	<form action="{{ path_for('contact') }}" method="POST" autocomplete="off">
 		<label for="name">Name</label>
 		<input type="text" name="name" id="name">
 		<label for="email">Email</label>
