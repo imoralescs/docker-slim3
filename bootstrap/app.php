@@ -1,18 +1,42 @@
-<?php 
+<?php
+  session_start();
 
   // Basic Slim Route
   $app = new \Slim\App([
   	'settings' => [
-  		'displayErrorDetails' => true
-  	]
+  		'displayErrorDetails' => true,
+      // Used Eloquent
+      'db' => [
+        'driver' => 'mysql',
+        'host' => 'mysql',
+        'database' => 'name_db',
+        'username' => 'user',
+        'password' => 'password',
+        'charset' => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+        'prefix' => '',
+      ]
+  	],
   ]);
 
   // Slim Container - Is a Dependency Container, used for dependency injection.
   $container = $app->getContainer();
 
-  // Installing Database
+  // We are going to name this variable $capsule, this is the way laravel component.
+  $capsule = new \Illuminate\Database\Capsule\Manager;
+  $capsule->addConnection($container['settings']['db']);
+  $capsule->setAsGlobal();
+  $capsule->bootEloquent();
+
+  // Installing Database to used PDO
+  /*
   $container['db'] = function(){
     return new PDO('mysql:host=mysql;dbname=name_db','user','password');
+  };
+  */
+  // Installing Database to used Eloquent
+  $container['db'] = function($container) use ($capsule){
+    return $capsule;
   };
 
   // Installing View Container (Twig)
