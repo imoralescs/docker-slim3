@@ -1,6 +1,5 @@
 <h1>Sign Up</h1>
 <form action="{{ path_for('auth.signup') }}" method="POST">
-	{{ old | json_encode }}
 	<div class="form-control{{ errors.firstname ? ' has-error' : '' }}">
 		<label for="name">First Name</label>
 		<input type="text" name="firstname" id="firstname" value="{{ old.firstname }}">
@@ -10,21 +9,21 @@
 	</div>
 	<div class="form-control{{ errors.lastname ? ' has-error' : '' }}">
 		<label for="name">Last Name</label>
-		<input type="text" name="lastname" id="lastname">
+		<input type="text" name="lastname" id="lastname" value="{{ old.lastname }}">
 		{% if errors.lastname %}
 			<span>{{ errors.lastname | first }}</span>
 		{% endif %}
 	</div>
 	<div class="form-control{{ errors.username ? ' has-error' : '' }}">
 		<label for="name">Username</label>
-		<input type="text" name="username" id="username">
+		<input type="text" name="username" id="username" value="{{ old.username }}">
 		{% if errors.username %}
 			<span>{{ errors.username | first }}</span>
 		{% endif %}
 	</div>
 	<div class="form-control{{ errors.email ? ' has-error' : '' }}">
 		<label for="name">Email</label>
-		<input type="text" name="email" id="email">
+		<input type="text" name="email" id="email" value="{{ old.email }}">
 		{% if errors.email %}
 			<span>{{ errors.email | first }}</span>
 		{% endif %}
@@ -37,4 +36,5 @@
 		{% endif %}
 	</div>
 	<button type="submit">Sign up</button>
+	{{ csrf.field }}
 </form>

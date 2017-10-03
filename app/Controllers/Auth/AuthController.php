@@ -16,13 +16,16 @@ class AuthController extends Controller
   public function postSignUp($request, $response)
   {
     //var_dump($request->getParams());
-    
+
+    // Persisting form data
+    //$_SESSION['old'] = $request->getParams();
+
     // Validate data
     $validation = $this->c->validator->validate($request, [
-      'firstname' => v::noWhitespace()->notEmpty(),
-      'lastname' => v::noWhitespace()->notEmpty(),
+      'firstname' => v::notEmpty()->alpha(),
+      'lastname' => v::notEmpty()->alpha(),
       'username' => v::noWhitespace()->notEmpty(),
-      'email' => v::noWhitespace()->notEmpty(),
+      'email' => v::noWhitespace()->notEmpty()->email()->EmailAvailable(),
       'password' => v::noWhitespace()->notEmpty(),
     ]);
 

@@ -133,10 +133,8 @@
 	};
 	*/
 
-	// Middleware
+	// Middleware with route
 	use App\Middleware\RedirectIfUnauthenticated;
-	use App\Middleware\ValidationErrorsMiddleware;
-	use App\Middleware\OldInputMiddleware;
 
 	//$app->get('/topics', TopicController::class . ':index')->add($middleware);
 	//$app->get('/topics/api', TopicController::class . ':api');
@@ -159,5 +157,5 @@
 	})->setName('login');
 
 	// Authentication routes
-	$app->get('/auth/signup', AuthController::class . ':getSignUp')->add(new ValidationErrorsMiddleware($container))->add(new OldInputMiddleware($container))->setName('auth.signup');
+	$app->get('/auth/signup', AuthController::class . ':getSignUp')->setName('auth.signup');
 	$app->post('/auth/signup', AuthController::class . ':postSignUp');

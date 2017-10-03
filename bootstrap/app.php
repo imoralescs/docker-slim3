@@ -1,4 +1,7 @@
 <?php
+
+  use Respect\Validation\Validator as v;
+
   session_start();
 
   // Basic Slim Route
@@ -56,6 +59,14 @@
     return $view;
   };
 
+  // Installing CSRF
+  $container['csrf'] = function($container){
+    return new \Slim\Csrf\Guard;
+  };
+
+  $app->add($container->csrf);
+
+  //-- Middleware with container.
   // Middleware is for do some task before or after access to the main core app.
   $middleware = function($request, $response, $next){
     $response->getBody()->write('Before');
@@ -64,5 +75,17 @@
 
     return $response;
   };
+
+  // Csrf protector
+  $app->add(new App\Middleware\CsrfViewMiddleware($container));
+
+  // Form validation
+  $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
+  
+  // Persisting form data
+  $app->add(new App\Middleware\OldInputMiddleware($container));
+
+  // Allow custom validation rules
+  v::with('App\\Validation\\Rules\\');
 
   require_once(__DIR__ .'/../routes/web.php');
