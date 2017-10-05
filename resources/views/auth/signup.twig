@@ -36,5 +36,5 @@
 		{% endif %}
 	</div>
 	<button type="submit">Sign up</button>
-	{{ csrf.field }}
+	{{ csrf_field() | raw }}
 </form>

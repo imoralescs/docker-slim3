@@ -1,8 +1,9 @@
 <?php
+  session_start();
 
   use Respect\Validation\Validator as v;
 
-  session_start();
+
 
   // Basic Slim Route
   $app = new \Slim\App([
@@ -46,6 +47,11 @@
     return new App\Validation\Validator;
   };
 
+  // Installing CSRF
+  $container['csrf'] = function($container){
+    return new \Slim\Csrf\Guard;
+  };
+
   // Installing View Container (Twig)
   $container['view'] = function($container){
     $view = new \Slim\Views\Twig(__DIR__ . "/../resources/views",[
@@ -55,16 +61,12 @@
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+    $view->addExtension(new App\Views\CsrfExtension($container['csrf']));
 
     return $view;
   };
 
-  // Installing CSRF
-  $container['csrf'] = function($container){
-    return new \Slim\Csrf\Guard;
-  };
 
-  $app->add($container->csrf);
 
   //-- Middleware with container.
   // Middleware is for do some task before or after access to the main core app.
@@ -77,15 +79,17 @@
   };
 
   // Csrf protector
-  $app->add(new App\Middleware\CsrfViewMiddleware($container));
+  //$app->add(new \App\Middleware\CsrfViewMiddleware($container));
 
   // Form validation
-  $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
-  
+  $app->add(new \App\Middleware\ValidationErrorsMiddleware($container));
+
   // Persisting form data
-  $app->add(new App\Middleware\OldInputMiddleware($container));
+  $app->add(new \App\Middleware\OldInputMiddleware($container));
 
   // Allow custom validation rules
   v::with('App\\Validation\\Rules\\');
+
+  $app->add($container->get('csrf'));
 
   require_once(__DIR__ .'/../routes/web.php');
