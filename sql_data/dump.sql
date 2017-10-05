@@ -11,11 +11,11 @@ CREATE TABLE users (
 
 );
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('1', 'Alex', 'Jones', 'alex_707', 'alex.jones@gmail.com', '', '100', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('2', 'Bob', 'Cooper', 'cooper_b', 'bob.cooper@gmail.com', '', '102', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('3', 'Cassidy', 'Grayson', 'gray', 'cassidy.grayson@gmail.com', '', '121', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('4', 'Daniella', 'Georgette', 'dani_86', 'daniella.georgette@gmail.com', '', '200', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('5', 'Steve', 'Manette', 'smanette', 'steve.manette@gmail.com', '', '130', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('1', 'Alex', 'Jones', 'alex_707', 'alex.jones@gmail.com', '$2y$10$Ki3yGnCj9vCYkWXWEgNDZeS3WnTwhJOIbLc/yeGpJkXgwP4/jGAly', '100', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('2', 'Bob', 'Cooper', 'cooper_b', 'bob.cooper@gmail.com', '$2y$10$Ki3yGnCj9vCYkWXWEgNDZeS3WnTwhJOIbLc/yeGpJkXgwP4/jGAly', '102', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('3', 'Cassidy', 'Grayson', 'gray', 'cassidy.grayson@gmail.com', '$2y$10$Ki3yGnCj9vCYkWXWEgNDZeS3WnTwhJOIbLc/yeGpJkXgwP4/jGAly', '121', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('4', 'Daniella', 'Georgette', 'dani_86', 'daniella.georgette@gmail.com', '$2y$10$Ki3yGnCj9vCYkWXWEgNDZeS3WnTwhJOIbLc/yeGpJkXgwP4/jGAly', '200', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `balance`, `created_at`, `updated_at`) VALUES ('5', 'Steve', 'Manette', 'smanette', 'steve.manette@gmail.com', '$2y$10$Ki3yGnCj9vCYkWXWEgNDZeS3WnTwhJOIbLc/yeGpJkXgwP4/jGAly', '130', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 CREATE TABLE topics (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

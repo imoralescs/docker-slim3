@@ -52,6 +52,11 @@
     return new \Slim\Csrf\Guard;
   };
 
+  // Installing Auth
+  $container['auth'] = function($container){
+    return new \App\Auth\Auth;
+  };
+
   // Installing View Container (Twig)
   $container['view'] = function($container){
     $view = new \Slim\Views\Twig(__DIR__ . "/../resources/views",[
@@ -63,10 +68,14 @@
     $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
     $view->addExtension(new App\Views\CsrfExtension($container['csrf']));
 
+    // Setting Auth to used on Twig
+    $view->getEnvironment()->addGlobal('auth', [
+      'check' => $container->auth->check(),
+      'user' => $container->auth->user(),
+    ]);
+
     return $view;
   };
-
-
 
   //-- Middleware with container.
   // Middleware is for do some task before or after access to the main core app.

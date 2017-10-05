@@ -43,6 +43,37 @@ class AuthController extends Controller
       'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT)
     ]);
 
+    // Signin user in after create account
+    $this->c->auth->attempt($user->email, $request->getParam('password'));
+
+    return $response->withRedirect($this->c->router->pathFor('home'));
+  }
+
+  public function getSignIn($request, $response)
+  {
+    return $this->c->view->render($response, 'auth/signin.twig');
+  }
+
+  public function postSignIn($request, $response)
+  {
+    $auth = $this->c->auth->attempt(
+      $request->getParam('email'),
+      $request->getParam('password')
+    );
+
+    if(!$auth){
+      return $response->withRedirect($this->c->router->pathFor('auth.signin'));
+    }
+
+    return $response->withRedirect($this->c->router->pathFor('home'));
+  }
+
+  public function getSignOut($request, $response)
+  {
+    // Sign out
+    $this->c->auth->logout();
+
+    // Redirect
     return $response->withRedirect($this->c->router->pathFor('home'));
   }
 }
