@@ -4,7 +4,10 @@
         "slim/twig-view": "^2.3",
         "illuminate/database": "^5.5",
         "respect/validation": "^1.1",
-        "slim/csrf": "^0.8.1"
+        "slim/csrf": "^0.8.1",
+        "tuupola/slim-basic-auth": "^2.3",
+        "firebase/php-jwt": "^5.0",
+        "tuupola/slim-jwt-auth": "^2.3"
     },
     "autoload": {
     	"psr-4": {

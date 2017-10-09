@@ -101,4 +101,31 @@
 
   $app->add($container->get('csrf'));
 
+  // Basic Authentication
+  $app->add(new \Slim\Middleware\HttpBasicAuthentication([
+    'path' => '/admin',
+    'secure' => false, // Used true on production
+    'authenticator' => new \App\Middleware\BasicAuthenticationMiddleware()
+  ]));
+
+  // Installing JWT Authentication
+  $container['jwt'] = function($container){
+    $jwt = new \Firebase\JWT\JWT();
+    return $jwt;
+  };
+
+  // JWT Authentication
+  $app->add(new \Slim\Middleware\JwtAuthentication([
+    'path' => ["/getservicebyjwt"],
+    'secure' => false,
+    'passthrough' => ["/getjwttoken"],
+    "secret" => "supersecretkeyyoushouldnotcommit",
+    "error" => function($request, $response, $arguments){
+      $data["status"] = "error";
+      $data["message"] = $arguments["message"];
+      return $response->withHeader("Content-Type", "application/json")->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    }
+  ]));
+
+
   require_once(__DIR__ .'/../routes/web.php');
