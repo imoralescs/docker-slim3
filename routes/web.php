@@ -4,6 +4,7 @@
 	use App\Controllers\UserController;
 	use App\Controllers\ExampleController;
 	use App\Controllers\Auth\AuthController;
+	use App\Controllers\Auth\PasswordController;
 
 	// setName is to add name to route
 	$app->get('/', function($request, $response){
@@ -32,7 +33,7 @@
 
 	// Passing data to view with database
 	$app->get('/customers', function($request, $response){
-		$customers = $this->db->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
+		$customers = $this->db_pdo->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
 
 		return $this->view->render($response, 'customers.twig',[
 			'customers' => $customers
@@ -135,6 +136,8 @@
 
 	// Middleware with route
 	use App\Middleware\RedirectIfUnauthenticated;
+	use App\Middleware\AuthMiddleware;
+	use App\Middleware\GuestMiddleware;
 
 	//$app->get('/topics', TopicController::class . ':index')->add($middleware);
 	//$app->get('/topics/api', TopicController::class . ':api');
@@ -156,11 +159,25 @@
 		return 'Login';
 	})->setName('login');
 
-	// Authentication routes
-	$app->get('/auth/signup', AuthController::class . ':getSignUp')->setName('auth.signup');
-	$app->post('/auth/signup', AuthController::class . ':postSignUp');
+	//--* Authentication routes
 
-	$app->get('/auth/signin', AuthController::class . ':getSignIn')->setName('auth.signin');
-	$app->post('/auth/signin', AuthController::class . ':postSignIn');
+	// If you are login in
+	$app->group('', function(){
+		// Sign up
+		$this->get('/auth/signup', AuthController::class . ':getSignUp')->setName('auth.signup');
+		$this->post('/auth/signup', AuthController::class . ':postSignUp');
 
-	$app->get('/auth/signout', AuthController::class . ':getSignOut')->setName('auth.signout');
+		// Sign in
+		$this->get('/auth/signin', AuthController::class . ':getSignIn')->setName('auth.signin');
+		$this->post('/auth/signin', AuthController::class . ':postSignIn');
+	})->add(new GuestMiddleware($container));
+
+	// If you are not login in
+	$app->group('', function(){
+		// Sign out route
+		$this->get('/auth/signout', AuthController::class . ':getSignOut')->setName('auth.signout');
+
+		// Change password route
+		$this->get('/auth/password/change', PasswordController::class . ':getChangePassword')->setName('auth.password.change');
+		$this->post('/auth/password/change', PasswordController::class . ':postChangePassword');
+	})->add(new AuthMiddleware($container));

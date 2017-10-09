@@ -1,0 +1,19 @@
+<h1>Change Password</h1>
+<form action="{{ path_for('auth.password.change') }}" method="POST">
+	<div class="form-control{{ errors.password_old ? ' has-error' : '' }}">
+		<label for="name">Current Password</label>
+		<input type="password" name="password_old" id="password_old" autocomplete="off">
+		{% if errors.password_old %}
+			<span>{{ errors.password_old | first }}</span>
+		{% endif %}
+	</div>
+	<div class="form-control{{ errors.password ? ' has-error' : '' }}">
+		<label for="name">Password</label>
+		<input type="password" name="password" id="password" autocomplete="off">
+		{% if errors.password %}
+			<span>{{ errors.password | first }}</span>
+		{% endif %}
+	</div>
+	<button type="submit">Change</button>
+	{{ csrf_field() | raw }}
+</form>
