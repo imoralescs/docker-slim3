@@ -127,5 +127,11 @@
     }
   ]));
 
+  // Basic Authentication and JWT
+  $app->add(new \Slim\Middleware\HttpBasicAuthentication([
+    'path' => '/gettoken',
+    'secure' => false, // Used true on production
+    'authenticator' => new \App\Middleware\JWTAuthenticationMiddleware()
+  ]));
 
   require_once(__DIR__ .'/../routes/web.php');
