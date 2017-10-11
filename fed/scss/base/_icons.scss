@@ -1,0 +1,26 @@
+/* ==========================================================================
+		ICONS
+	 ========================================================================== */
+	 .icon {
+	   display: inline-block;
+	   width: 1em;
+	   height: 1em;
+	   stroke-width: 0;
+	   stroke: currentColor;
+	   fill: currentColor;
+	 }
+
+	 .icon-cross {
+	   color: #143652;
+	   font-size: 22px;
+	 	-webkit-transition: color .25s;
+	 	-moz-transition: color .25s;
+	 	transition: color .25s;
+
+	 	&:hover {
+	 		color: #4B92B4;
+	 		-webkit-transition: color .25s;
+	 		-moz-transition: color .25s;
+	 		transition: color .25s;
+	 	}
+	 }

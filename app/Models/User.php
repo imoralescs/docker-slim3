@@ -9,7 +9,7 @@ class User extends Model
 	// Eloquent implementation
 	protected $table = 'users';
 
-	// Fillable to introduce data to database.
+	// Fillable to introduce data to database with Eloquent
 	protected $fillable = [
 		'firstname',
 		'lastname',

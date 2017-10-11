@@ -1,0 +1,36 @@
+/* ==========================================================================
+VARS
+========================================================================== */
+
+// media query breakpoints
+$tablet: 1080px;
+$desktop: $tablet + 1;
+$tabletLandscape: 1120px;
+$phone: 700px;
+$respHeader: 1024px;
+$respPromo: 820px;
+$resp980: 980px;
+$resp940: 940px;
+$resp880: 880px;
+$resp600: 600px;
+
+
+// global dimensions
+$padding: 40px;
+
+// global colors
+$exampleColor: #3d3524;
+
+$project: #3F87AB;
+$base: #313131;
+$normal: #FFF;
+$clean: #3d3524;
+$alert: #B81414;
+$active: #CCBC17;
+$link: #26769b;
+
+// animation
+$noanimation: 0s;
+$transitionSpeed: 0.25s;
+$menuSpeed: 0.4s;
+$delay: 1s;

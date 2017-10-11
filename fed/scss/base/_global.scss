@@ -1,0 +1,63 @@
+:root {
+  font-size: calc( 12px + (20 - 12) * ((100vw - 400px) / ( 1200 - 400)));
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #15191D;
+  background-color: #FFF;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 200;
+}
+
+dl, h1, h2, h3, h4, h5, h6, ol, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+input, textarea {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.container {
+  max-width: 50em;
+  margin: 0 auto;
+  background-color: #FFF;
+  background-color: #e6e9f0;
+}
+
+.wrapper {
+  padding: 0;
+  margin: 0 auto;
+  width: auto;
+  max-width: 1280px;
+}
+
+.content-main {
+  padding-top: 125px;
+  -webkit-transition: padding-top .25s;
+  -moz-transition: padding-top .25s;
+  transition: padding-top .25s;
+}
+
+.content {
+  padding: 2em 3em;
+  background-color: #fff;
+  @include clearfix ;
+
+  .container {
+    max-width: 50em;
+    margin: 0 auto;
+  }
+}

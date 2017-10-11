@@ -1,4 +1,3 @@
-<h1>Sign In</h1>
 <form action="{{ path_for('auth.signin') }}" method="POST">
 	<div class="form-control{{ errors.email ? ' has-error' : '' }}">
 		<label for="name">Email</label>
@@ -17,3 +16,5 @@
 	<button type="submit">Sign in</button>
 	{{ csrf_field() | raw }}
 </form>
+
+

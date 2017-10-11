@@ -1,0 +1,25 @@
+/* ==========================================================================
+	HEADER
+	========================================================================== */
+.header {
+	min-height: 90px;
+	background: #FFF;
+	&__container {
+		max-width: 1250px;
+		margin: auto auto;
+		padding: 10px 16px;
+		@include desktop {
+			padding: 10px 46px;
+		}
+	}
+}
+
+.logo {
+	width: 64px;
+  height: auto;
+  display: inline-block;
+	img {
+		width: 64px;
+		height: 64px;
+	}
+}

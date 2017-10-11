@@ -136,7 +136,7 @@
 
 	// Middleware with route
 	use App\Middleware\RedirectIfUnauthenticated;
-	use App\Middleware\AuthMiddleware;
+	use App\Middleware\AuthenticationMiddleware;
 	use App\Middleware\GuestMiddleware;
 
 	//$app->get('/topics', TopicController::class . ':index')->add($middleware);
@@ -179,4 +179,4 @@
 		// Change password route
 		$this->get('/auth/password/change', PasswordController::class . ':getChangePassword')->setName('auth.password.change');
 		$this->post('/auth/password/change', PasswordController::class . ':postChangePassword');
-	})->add(new AuthMiddleware($container));
+	})->add(new AuthenticationMiddleware($container));

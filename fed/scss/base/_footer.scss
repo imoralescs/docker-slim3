@@ -1,0 +1,38 @@
+/* ==========================================================================
+	FOOTER
+	========================================================================== */
+.footer {
+	background: #f3f3f3;
+	text-align: center;
+
+	&__container {
+		padding: 10px 46px;
+	}
+
+	&__address-container {
+		float: left;
+    text-align: left;
+		margin: 60px auto;
+		color: #848789;
+	}
+
+	&__address-item {
+		display: block;
+		font-size: 14px;
+	}
+
+	&__social-link {
+		display: inline-block;
+    text-align: center;
+    margin: 60px auto;
+		img {
+			height: 40px;
+    	width: 40px;
+		}
+	}
+
+	&__social-item {
+		display: inline-block;
+		padding: 0 6px;
+	}
+}

@@ -1,0 +1,330 @@
+/* ==========================================================================
+		MIXINS
+	 ========================================================================== */
+
+// breakpoint mixins
+@mixin border-radius-fix($w) {
+	@include border-top-left-radius($w);
+	@include border-top-right-radius($w);
+	@include border-bottom-left-radius($w);
+	@include border-bottom-right-radius($w);
+}
+
+@mixin respond-to($width) {
+		@media only screen and (max-width: $width) { @content; }
+}
+
+@mixin respond-from($width) {
+		@media only screen and (min-width: $width) { @content; }
+}
+
+@mixin respond-to-height($height) {
+		@media only screen and (max-height: $height) { @content; }
+}
+
+@mixin desktop {
+	@media (min-width: $desktop) {
+		@content
+	}
+}
+
+@mixin desktop {
+	@media (min-width: $desktop) {
+		@content
+	}
+}
+
+@mixin tablet-landscape {
+	@media (min-width: $tablet) and (max-width: $tabletLandscape) {
+		@content
+	}
+}
+
+@mixin tablet-portrait {
+	@media (min-width: $phone + 1) {
+		@content
+	}
+}
+
+@mixin tablet {
+	@media (min-width: $tablet) {
+		@content
+	}
+}
+
+@mixin phone {
+	@media (max-width: $phone) {
+		@content
+	}
+}
+
+// aspect ratio
+// rewritten, simplified
+@mixin aspect-ratio($w, $h) {
+	$slope: $h / $w;
+	$height: $h - $w * $slope;
+	padding-top: $slope * 100%;
+	height: $height;
+}
+
+@mixin user-select($select) {
+	$select: unquote($select);
+	@include experimental(user-select, $select, -moz, -webkit, not -o, not -ms, -khtml, official);
+}
+
+// keyframes mixin
+@mixin keyframes($name) {
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+	@-moz-keyframes #{$name} {
+		@content;
+	}
+	@-ms-keyframes #{$name} {
+		@content;
+	}
+	@keyframes #{$name} {
+		@content;
+	}
+}
+
+@mixin animation($def) {
+	-webkit-animation: $def; /* Safari 4+ */
+	-moz-animation:    $def; /* Fx 5+ */
+	-o-animation:      $def; /* Opera 12+ */
+	animation:         $def; /* IE 10+ */
+}
+
+// add a slash before your item
+@mixin slash($_height: 10px, $_margin: 5px, $_width: 4px, $_skew: -20deg, $_color: #fff) {
+		&:before {
+				content: ' ';
+				width: $_width;
+				height: $_height;
+				background-color: $_color;
+				display: inline-block;
+				margin-right: $_margin;
+				@include transform(skewX($_skew));
+				.rtl & {
+						margin-left: $_margin;
+						margin-right: 0px;
+				}
+		}
+}
+
+// add an arrow after your item
+@mixin arrow($position: 'down', $_height: 6px, $_width: 8px, $_color: black) {
+		&:after {
+				content: " ";
+				display: inline-block;
+				width: 0px;
+				height: 0px;
+				border-style: solid;
+				margin-bottom: $_height / 2;
+				@if $position == 'down' {
+					border-width: $_height $_width / 2 0 $_width / 2;
+					border-color: $_color transparent transparent transparent;
+				} @else if $position == 'up' {
+					border-width: 0 $_width / 2 $_height $_width / 2;
+					border-color: transparent transparent $_color transparent;
+				} @else if $position == 'left' {
+					border-width: $_height / 2 $_width $_height / 2 0;
+					border-color: transparent $_color transparent transparent;
+				} @else if $position == 'right' {
+					border-width: $_height / 2 0 $_height / 2 $_width;
+					border-color: transparent transparent transparent $_color;
+				}
+		}
+}
+
+// background gradients that work in IE
+@mixin background-image-with-ms($image) {
+		@include background-image($image); // Compass default version, for everything but IE 10.
+		background-image: -ms-#{$image}; // Vendor prefixes for IE 10.
+}
+
+@mixin clearfix {
+		zoom:1;
+		&:before, &:after {
+				content: "\0020";
+				display: block;
+				height: 0;
+				overflow: hidden;
+		}
+		&:after {
+				clear: both;
+		}
+}
+
+
+/*
+Efrain: I had to modify this sass mixin a little bit
+https://raw.githubusercontent.com/jorenvanhee/sass-burger/master/_burger.scss */
+
+/**
+ * Burger parts
+ *
+ * (---) top    -> &:before
+ * [---] middle -> &
+ * (---) bottom -> &:after
+ */
+
+/**
+ * Burger
+ */
+
+@mixin burger($width: 30px, $height: 5px, $gutter: 3px, $color: #000, $border-radius: 0, $transition-duration: .3s) {
+
+		position: relative;
+		margin-top: $height + $gutter;
+		margin-bottom: $height + $gutter;
+
+		&, &:before, &:after {
+				display: block;
+				width: $width;
+				height: $height;
+				background-color: $color;
+				@if $border-radius != 0 {
+						border-radius: $border-radius;
+				}
+
+				-webkit-transition-property: background-color, -webkit-transform;
+				-moz-transition-property: background-color, -moz-transform;
+				-o-transition-property: background-color, -o-transform;
+				transition-property: background-color, transform;
+
+				-webkit-transition-duration: $transition-duration;
+				-moz-transition-duration: $transition-duration;
+				-o-transition-duration: $transition-duration;
+				transition-duration: $transition-duration;
+		}
+
+		&:before, &:after {
+				position: absolute;
+				content: "";
+		}
+
+		&:before {
+				top: -($height + $gutter);
+		}
+
+		&:after {
+				top: $height + $gutter;
+		}
+}
+
+
+/**
+ * Select parts of the burger
+ */
+
+@mixin burger-parts {
+		&, &:before, &:after {
+				@content;
+		}
+}
+
+@mixin burger-top {
+		&:before {
+				@content;
+		}
+}
+
+@mixin burger-middle {
+		& {
+				@content;
+		}
+}
+
+@mixin burger-bottom {
+		&:after {
+				@content;
+		}
+}
+
+/**
+ * Burger animations
+ */
+
+@mixin burger-to-cross($burger-height: 5px, $burger-gutter: 30px) {
+
+		& {
+				background-color: transparent;
+		}
+		&:before {
+				-webkit-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+				-moz-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+				-ms-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+				-o-transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+				transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+		}
+		&:after {
+				-webkit-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+				-moz-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+				-ms-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+				-o-transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+				transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+		}
+}
+
+// placeholder classes
+
+%button-arrow {
+	&:after {
+		background-color: #fff;
+		content: '';
+		display: block;
+		height: 2px;
+		position: absolute;
+		right: 28px;
+		top: 50%;
+		width: 0px;
+		@include transform(translateY(-50%));
+		@include transition(width $transitionSpeed);
+	}
+	&:hover {
+		&:after {
+			width: 20px;
+		}
+	}
+	a:hover & {
+		&:after {
+			width: 20px;
+		}
+	}
+}
+
+// extendable classes (not placeholder)
+
+.clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+// Default
+/*
+.container {
+	@extend .clearfix;
+	max-width: 1170px;
+	position: relative;
+	margin: 0 auto;
+	padding: 0 15px;
+}
+*/
+
+%wysiwyg {
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: normal;
+		line-height: 1;
+		margin-top: 0px;
+	}
+	a {
+		/* @extend .standard-link; */
+	}
+	blockquote {
+		/* @extend .content-column__blockquote; */
+	}
+}

@@ -1,0 +1,49 @@
+/* ==========================================================================
+		BROWSER TWEAKS
+	 ========================================================================== */
+html {
+	-webkit-font-smoothing: antialiased;
+}
+
+// fixes input elements to have border-box great for percentages
+* , *:before , *:after {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	box-sizing: border-box;
+}
+
+// remove annoying dotted outline on links and form elements
+* {
+		outline: 0;
+}
+
+/* IE 10 Overrides */
+
+// removes annoying x on inputs
+*::-ms-clear {
+		display: none;
+}
+
+// fix scrollbar overlap
+body {
+		-ms-overflow-style: scrollbar !important;
+}
+
+// Browser Form overwrites
+input, textarea {
+		@include appearance(none);
+}
+select {
+		border-radius: 0;
+}
+textarea {
+		resize: none;
+}
+input[type=submit] {
+		cursor: pointer;
+}
+
+/* Mobile Overrides */
+// remove ugly highlight color
+* {
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
